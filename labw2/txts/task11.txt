@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+
+main(){
+cout << "" << endl;
+cout << "__________" << endl;
+cout << "|_||__||_____ \\______" << endl;
+cout << "|_/( o )\\_|__|_/( o )\\_\\   " << endl;
+cout << "" << endl;
+cout << "" << endl;
+cout << "" << endl;
+
+
+
+
+
+
+
+
+}
