@@ -9,16 +9,16 @@ void clear(int x, int y, char previous);
 void printPacman(int x, int y);
 char getCharAtxy(short int x, short int y);
 void showGhost(int x, int y);
-void moveghost(int gx, int gy,string direction, char previousChar,char nextLocation);
+void moveghost(int gx, int gy, string direction, char previousChar);
 
 main()
 {
-    int pacmanX = 4;
-    int pacmanY = 4;
-    int gx = 1;
-    int gy = 1;
-    int gx2 = 3;
-    int gy2 = 3;
+    int pacmanX = 1;
+    int pacmanY = 1;
+    int gx = 4;
+    int gy = 4;
+    int gx2 = 4;
+    int gy2 = 1;
 
     bool gameRunning = true;
 
@@ -27,17 +27,16 @@ main()
     showGhost(gx, gy);
     printPacman(pacmanX, pacmanY);
     string direction = "right";
-    string ydirection = "up";
+    string ydirection = "down";
     char previousChar = ' ';
     char nextLocation;
-    
-    
+
     showGhost(gx, gy);
-    
+    showGhost(gx2, gy2);
 
     while (gameRunning)
     {
-        /*if (GetAsyncKeyState(VK_LEFT))
+        if (GetAsyncKeyState(VK_LEFT))
         {
             char nextLocation = getCharAtxy(pacmanX - 1, pacmanY);
             if (nextLocation == ' ')
@@ -80,10 +79,87 @@ main()
         if (GetAsyncKeyState(VK_ESCAPE))
         {
             gameRunning = false;
-        }*/
+        }
         Sleep(200);
-        moveghost(gx,gy,direction,previousChar,nextLocation);
-        
+        // moveghost(gx,gy,direction,previousChar);
+        Sleep(200);
+        if (direction == "right")
+        {
+            char nextLocation = getCharAtxy(gx + 1, gy);
+            if (nextLocation == '%')
+
+            {
+
+                direction = "left";
+            }
+            else if (nextLocation == ' ' || nextLocation == '.')
+            {
+                clear(gx, gy, previousChar);
+
+                gx = gx + 1;
+                previousChar = nextLocation;
+
+                showGhost(gx, gy);
+            }
+        }
+        if (direction == "left")
+        {
+            char nextLocation = getCharAtxy(gx - 1, gy);
+            if (nextLocation == '%')
+
+            {
+
+                direction = "right";
+            }
+            else if (nextLocation == ' ' || nextLocation == '.')
+            {
+                clear(gx, gy, previousChar);
+
+                gx = gx - 1;
+                previousChar = nextLocation;
+
+                showGhost(gx, gy);
+            }
+        }
+        if (ydirection == "up")
+        {
+            char nextLocation = getCharAtxy(gx2, gy2 - 1);
+            if (nextLocation == '%')
+
+            {
+
+                ydirection = "down";
+            }
+            else if (nextLocation == ' ' || nextLocation == '.')
+            {
+                clear(gx2, gy2, previousChar);
+
+                gy2 = gy2 - 1;
+                previousChar = nextLocation;
+
+                showGhost(gx2, gy2);
+            }
+            
+        }
+        if (ydirection == "down")
+            {
+                char nextLocation = getCharAtxy(gx2, gy2 + 1);
+                if (nextLocation == '%')
+
+                {
+
+                    ydirection = "up";
+                }
+                else if (nextLocation == ' ' || nextLocation == '.')
+                {
+                    clear(gx2, gy2, previousChar);
+
+                    gy2 = gy2 + 1;
+                    previousChar = nextLocation;
+
+                    showGhost(gx2, gy2);
+                }
+            }
     }
 }
 
@@ -146,11 +222,8 @@ void showGhost(int x, int y)
     cout << "G";
 }
 
-void moveghost(int gx, int gy,string direction, char previousChar,char nextLocation)
+void moveghost(int gx, int gy, string direction, char previousChar)
 {
-
-    
-
     Sleep(200);
     if (direction == "right")
     {
